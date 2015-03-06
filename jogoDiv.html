@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>Jogos</title>
+		<meta charset='UTF-8'>
+		<style>
+			#bola{
+				background-color: red;
+				width: 20px;
+				height:20px;
+				border-radius:10px;
+				position: absolute;
+
+			}
+
+			#barra{
+				background-color: #000;
+				width: 150px;
+				height:30px;
+				border-radius:4px;
+				position: absolute;
+				margin-top: 465px;
+			}
+
+			#tela{
+				background-color: #eee;
+				width: 800px;
+				height:500px;
+				position: relative;
+				float: left;
+				margin-top: 30px;
+				margin-left: 30px;
+				border: 1px solid #ccc;
+			}
+			#score{
+				background-color: #eee;
+				width: 200px;
+				height:100px;
+				float: left;
+				margin-top: 30px;
+				margin-left: 50px;
+				border: 1px solid #ccc;
+			}
+
+			#score h1{
+				background-color: #ccc;
+				color: #333;
+				font-size: 16px;
+				text-align: center;
+				margin: 0px;
+			}
+			#score p{
+				font-weight: bold;
+				color: red;
+				font-size: 16px;
+				padding: 10px;
+			}
+			#score h2{
+				border: 1px solid #cc0000;
+				font-weight: bold;
+				color: #fff;
+				font-size: 18px;
+				padding: 4px;
+				width: 60px;
+				background-color: #cc0000;
+				margin-top: -18px;
+			}
+		</style>
+		<script>
+		var i = 10;
+			var j = 10;
+
+			var bi = 465;
+			var bj = 450;
+			var temporizador = 10;
+			var minTempo = 5;
+			var qtdTempo = 10;
+			var count = 0;
+			var limiteBottom = 480;
+			var limiteRight = 780;
+			var flagI = true;
+			var flagJ = true;
+			var score = 0;
+		 
+
+		function iniciar(){
+			var bola = document.getElementById('bola');
+			var barra = document.getElementById('barra');
+			i = 10;
+			j = 10;
+			bi = 470;
+			bj = 450;
+			temporizador = 50;
+			minTempo = 5;
+			qtdTempo = 50;
+			count = 0;
+			limiteBottom = 480;
+			limiteRight = 780;
+			flagI = true;
+			flagJ = true;
+			score = 0;
+		    bola.style.marginLeft = j+'px';
+		    bola.style.marginTop = i+'px';
+		    barra.style.marginLeft = bj+'px';
+		   	barra.style.marginTop = bi+'px';
+		    document.getElementById('pontuacao').innerHTML = 'Pontuação:' + score;
+		   // barra.moveTo(bj,bi);
+		    teste();
+		}
+		   
+
+
+		   function teste(){
+		   		 var bola = document.getElementById('bola');
+		   		 if (flagI)
+		   		 	i = i + 5;
+		   		 else
+		   		 	i = i - 5;
+
+		   		 if (flagJ)
+		   		 	j = j + 5;
+		   		 else
+		   		 	j = j - 5;
+		   		  
+		   		 
+		   		 bola.style.marginLeft = j+'px';
+		   		 bola.style.marginTop = i+'px';
+		   		 if ((i + 20 >= bi) && (j + 20 >= bj)  && (j <= bj + 180)){
+		   		 	
+		   	 		flagI = false;
+		   	 		score = score + 1;
+		   	 		document.getElementById('pontuacao').innerHTML = 'Pontuação:' + score;
+		   		 }	
+
+		   		 if (i >= limiteBottom ) {
+		   		 	document.getElementById('pontuacao').innerHTML = 'GAME OVER';
+		   	 		return;
+		   	 		flagI= false;
+		   		 }
+
+
+
+		   		 if (j >= limiteRight) {
+		   		 	
+		   	 		flagJ = false;
+		   		 }	 
+
+		   		 if (i <= 0 ) {
+		   		 	
+		   	 		flagI = true;
+		   		 }	
+
+		   		 if (j <= 0) {
+		   		 	
+		   	 		flagJ = true;
+		   		 }	 
+
+
+		   		 setTimeout("teste()",temporizador);
+		   		 count++;
+		   		 if (count % qtdTempo == 0)
+		   		 	if (temporizador > minTempo)
+		   		 	 	temporizador--;
+		   }
+
+
+
+
+		   document.onkeydown = function(e){
+		   	var barra = document.getElementById('barra');
+				if (e.which == 65){
+					bj = bj - (100 - temporizador);
+					barra.style.marginLeft = bj+'px';
+
+				}
+
+				if (e.which == 68){
+					bj = bj + 100 - temporizador;
+					barra.style.marginLeft = bj+'px';
+
+				}
+				      	
+		   }
+		</script>
+	</head>
+	<body >
+		<div id="tela">
+			<div id="bola">
+			</div> 
+			<div id="barra">
+			</div> 
+		</div>
+		<div id="score">
+			<h1>Placar</h1>
+			<p id="pontuacao">Pontuação: </p>
+			<h2><a href="#" onclick="iniciar()">Iniciar</a></h2>
+		</div>
+	</body>
+</html>
