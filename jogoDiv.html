@@ -104,13 +104,12 @@
 		    barra.style.marginLeft = bj+'px';
 		   	barra.style.marginTop = bi+'px';
 		    document.getElementById('pontuacao').innerHTML = 'Pontuação:' + score;
-		   // barra.moveTo(bj,bi);
-		    teste();
+		    move();
 		}
 		   
 
 
-		   function teste(){
+		   function move(){
 		   		 var bola = document.getElementById('bola');
 		   		 if (flagI)
 		   		 	i = i + 5;
@@ -156,7 +155,7 @@
 		   		 }	 
 
 
-		   		 setTimeout("teste()",temporizador);
+		   		 setTimeout("move()",temporizador);
 		   		 count++;
 		   		 if (count % qtdTempo == 0)
 		   		 	if (temporizador > minTempo)
@@ -168,13 +167,13 @@
 
 		   document.onkeydown = function(e){
 		   	var barra = document.getElementById('barra');
-				if (e.which == 65){
+				if ((e.which == 65) || (e.which == 37)){
 					bj = bj - (100 - temporizador);
 					barra.style.marginLeft = bj+'px';
 
 				}
 
-				if (e.which == 68){
+				if ((e.which == 68) || (e.which == 39)){
 					bj = bj + 100 - temporizador;
 					barra.style.marginLeft = bj+'px';
 
