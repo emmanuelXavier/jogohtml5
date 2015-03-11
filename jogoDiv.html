@@ -166,15 +166,22 @@
 
 
 		   document.onkeydown = function(e){
+		   	var sizeBarra = 150;
+		   	var widthTela = 800;
 		   	var barra = document.getElementById('barra');
 				if ((e.which == 65) || (e.which == 37)){
 					bj = bj - (100 - temporizador);
+					if (bj < 0)
+						bj = 0;
+
 					barra.style.marginLeft = bj+'px';
 
 				}
 
 				if ((e.which == 68) || (e.which == 39)){
 					bj = bj + 100 - temporizador;
+					if (bj + sizeBarra > widthTela)
+						bj = widthTela - sizeBarra;
 					barra.style.marginLeft = bj+'px';
 
 				}
