@@ -78,31 +78,31 @@
 			var count = 0;
 			var limiteBottom = 480;
 			var limiteRight = 780;
-			var flagI = true;
-			var flagJ = true;
+			var flagTop = true;
+			var flagLeft = true;
 			var score = 0;
 		 
 
 		function iniciar(){
 			var bola = document.getElementById('bola');
 			var barra = document.getElementById('barra');
-			i = 10;
-			j = 10;
-			bi = 470;
-			bj = 450;
+			topBola = 10;
+			leftBola = 10;
+			topBarra = 470;
+			leftBarra = 450;
 			temporizador = 50;
 			minTempo = 5;
 			qtdTempo = 50;
 			count = 0;
 			limiteBottom = 480;
 			limiteRight = 780;
-			flagI = true;
-			flagJ = true;
+			flagTop = true;
+			flagLeft = true;
 			score = 0;
-		    bola.style.marginLeft = j+'px';
-		    bola.style.marginTop = i+'px';
-		    barra.style.marginLeft = bj+'px';
-		   	barra.style.marginTop = bi+'px';
+		    bola.style.marginLeft = leftBola+'px';
+		    bola.style.marginTop = topBola+'px';
+		    barra.style.marginLeft = leftBarra+'px';
+		   	barra.style.marginTop = topBarra+'px';
 		    document.getElementById('pontuacao').innerHTML = 'Pontuação:' + score;
 		    move();
 		}
@@ -111,47 +111,54 @@
 
 		   function move(){
 		   		 var bola = document.getElementById('bola');
-		   		 if (flagI)
-		   		 	i = i + 5;
+		   		 if (flagTop)
+		   		 	topBola = topBola + 5;
 		   		 else
-		   		 	i = i - 5;
+		   		 	topBola = topBola - 5;
 
-		   		 if (flagJ)
-		   		 	j = j + 5;
+		   		 if (flagLeft)
+		   		 	leftBola = leftBola + 5;
 		   		 else
-		   		 	j = j - 5;
+		   		 	leftBola = leftBola - 5;
 		   		  
 		   		 
-		   		 bola.style.marginLeft = j+'px';
-		   		 bola.style.marginTop = i+'px';
-		   		 if ((i + 20 >= bi) && (j + 20 >= bj)  && (j <= bj + 180)){
+		   		 bola.style.marginLeft = leftBola+'px';
+		   		 bola.style.marginTop = topBola+'px';
+		   		 if ((topBola + 20 >= topBarra) && (leftBola + 20 >= leftBarra)  && (leftBola <= leftBarra + 170)){
 		   		 	
-		   	 		flagI = false;
+		   	 		flagTop = false;
 		   	 		score = score + 1;
 		   	 		document.getElementById('pontuacao').innerHTML = 'Pontuação:' + score;
+		   	 		//muda a direção da bola caso a mesma bata no canto esquerdo
+		   	 		if ((topBola + 20 >= topBarra) && (leftBola + 20 >= leftBarra)  && (leftBola <= leftBarra + 10))
+		   	 			flagLeft = false;
+
+		   	 		//muda a direção da bola caso a mesma bata no canto direito
+		   	 		if ((topBola + 20 >= topBarra) && (leftBola >= leftBarra + 140)  && (leftBola <= leftBarra + 170))
+		   	 			flagLeft = true;
 		   		 }	
 
-		   		 if (i >= limiteBottom ) {
+		   		 if (topBola >= limiteBottom ) {
 		   		 	document.getElementById('pontuacao').innerHTML = 'GAME OVER';
 		   	 		return;
-		   	 		flagI= false;
+		   	 		flagTop= false;
 		   		 }
 
 
 
-		   		 if (j >= limiteRight) {
+		   		 if (leftBola >= limiteRight) {
 		   		 	
-		   	 		flagJ = false;
+		   	 		flagLeft = false;
 		   		 }	 
 
-		   		 if (i <= 0 ) {
+		   		 if (topBola <= 0 ) {
 		   		 	
-		   	 		flagI = true;
+		   	 		flagTop = true;
 		   		 }	
 
-		   		 if (j <= 0) {
+		   		 if (leftBola <= 0) {
 		   		 	
-		   	 		flagJ = true;
+		   	 		flagLeft = true;
 		   		 }	 
 
 
@@ -170,19 +177,19 @@
 		   	var widthTela = 800;
 		   	var barra = document.getElementById('barra');
 				if ((e.which == 65) || (e.which == 37)){
-					bj = bj - (100 - temporizador);
-					if (bj < 0)
-						bj = 0;
+					leftBarra = leftBarra - (100 - temporizador);
+					if (leftBarra < 0)
+						leftBarra = 0;
 
-					barra.style.marginLeft = bj+'px';
+					barra.style.marginLeft = leftBarra+'px';
 
 				}
 
 				if ((e.which == 68) || (e.which == 39)){
-					bj = bj + 100 - temporizador;
-					if (bj + sizeBarra > widthTela)
-						bj = widthTela - sizeBarra;
-					barra.style.marginLeft = bj+'px';
+					leftBarra = leftBarra + 100 - temporizador;
+					if (leftBarra + sizeBarra > widthTela)
+						leftBarra = widthTela - sizeBarra;
+					barra.style.marginLeft = leftBarra+'px';
 
 				}
 				      	
