@@ -81,7 +81,11 @@
 			var flagTop = true;
 			var flagLeft = true;
 			var score = 0;
-		 
+			var tempoMoveBarra;
+			var direcaoMoveBarra;
+			var inclinacao;
+		 	var limInfInclinacao = 1;
+		   	var limSupInclinacao = 9;
 
 		function iniciar(){
 			var bola = document.getElementById('bola');
@@ -99,6 +103,7 @@
 			flagTop = true;
 			flagLeft = true;
 			score = 0;
+			inclinacao = 5;
 		    bola.style.marginLeft = leftBola+'px';
 		    bola.style.marginTop = topBola+'px';
 		    barra.style.marginLeft = leftBarra+'px';
@@ -110,6 +115,8 @@
 
 
 		   function move(){
+
+
 		   		 var bola = document.getElementById('bola');
 		   		 if (flagTop)
 		   		 	topBola = topBola + 5;
@@ -117,9 +124,9 @@
 		   		 	topBola = topBola - 5;
 
 		   		 if (flagLeft)
-		   		 	leftBola = leftBola + 5;
+		   		 	leftBola = leftBola + inclinacao;
 		   		 else
-		   		 	leftBola = leftBola - 5;
+		   		 	leftBola = leftBola - inclinacao;
 		   		  
 		   		 
 		   		 bola.style.marginLeft = leftBola+'px';
@@ -129,13 +136,45 @@
 		   	 		flagTop = false;
 		   	 		score = score + 1;
 		   	 		document.getElementById('pontuacao').innerHTML = 'Pontuação:' + score;
+		   	 		
+
+		   	 		if (new Date().getTime() - tempoMoveBarra <= 500){
+		   	 			if (flagLeft){
+		   	 				if (direcaoMoveBarra == 'D'){
+			   	 				inclinacao += 4;
+			   	 				if (inclinacao > limSupInclinacao)
+			   	 					inclinacao = limSupInclinacao;
+		   	 				}
+		   	 				if (direcaoMoveBarra == 'E'){
+			   	 				inclinacao -= 4;
+			   	 				if (inclinacao < limInfInclinacao)
+			   	 					inclinacao = limInfInclinacao;
+		   	 				}
+		   	 			}else{
+		   	 				if (direcaoMoveBarra == 'D'){
+			   	 				inclinacao -= 4;
+			   	 				if (inclinacao < limInfInclinacao)
+			   	 					inclinacao = limInfInclinacao;
+		   	 				}
+		   	 				if (direcaoMoveBarra == 'E'){
+			   	 				inclinacao += 4;
+			   	 				if (inclinacao > limSupInclinacao)
+			   	 					inclinacao = limSupInclinacao;
+		   	 				}
+		   	 			}
+		   	 		}
+
 		   	 		//muda a direção da bola caso a mesma bata no canto esquerdo
-		   	 		if ((topBola + 20 >= topBarra) && (leftBola + 20 >= leftBarra)  && (leftBola <= leftBarra + 10))
+		   	 		if ((topBola + 20 >= topBarra) && (leftBola + 20 >= leftBarra)  && (leftBola <= leftBarra + 10)){
 		   	 			flagLeft = false;
+		   	 			inclinacao = 5;
+		   	 		}
 
 		   	 		//muda a direção da bola caso a mesma bata no canto direito
-		   	 		if ((topBola + 20 >= topBarra) && (leftBola >= leftBarra + 140)  && (leftBola <= leftBarra + 170))
+		   	 		if ((topBola + 20 >= topBarra) && (leftBola >= leftBarra + 140)  && (leftBola <= leftBarra + 170)){
 		   	 			flagLeft = true;
+		   	 			inclinacao = 5;
+		   	 		}
 		   		 }	
 
 		   		 if (topBola >= limiteBottom ) {
@@ -177,6 +216,8 @@
 		   	var widthTela = 800;
 		   	var barra = document.getElementById('barra');
 				if ((e.which == 65) || (e.which == 37)){
+					direcaoMoveBarra = 'E';
+					tempoMoveBarra = new Date().getTime();
 					leftBarra = leftBarra - (100 - temporizador);
 					if (leftBarra < 0)
 						leftBarra = 0;
@@ -186,6 +227,8 @@
 				}
 
 				if ((e.which == 68) || (e.which == 39)){
+					direcaoMoveBarra = 'D';
+					tempoMoveBarra = new Date().getTime();
 					leftBarra = leftBarra + 100 - temporizador;
 					if (leftBarra + sizeBarra > widthTela)
 						leftBarra = widthTela - sizeBarra;
