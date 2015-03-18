@@ -35,7 +35,7 @@
 			#score{
 				background-color: #eee;
 				width: 200px;
-				height:100px;
+				height:180px;
 				float: left;
 				margin-top: 30px;
 				margin-left: 50px;
@@ -65,6 +65,10 @@
 				background-color: #cc0000;
 				margin-top: -18px;
 			}
+			h1{
+				color: #cc0000;	
+				margin: 10px 0 0 25px;
+			}
 		</style>
 		<script>
 		var i = 10;
@@ -72,10 +76,7 @@
 
 			var bi = 465;
 			var bj = 450;
-			var temporizador = 10;
-			var minTempo = 5;
-			var qtdTempo = 10;
-			var count = 0;
+			var temporizador;
 			var limiteBottom = 480;
 			var limiteRight = 780;
 			var flagTop = true;
@@ -86,18 +87,24 @@
 			var inclinacao;
 		 	var limInfInclinacao = 1;
 		   	var limSupInclinacao = 9;
+		   	var nivelAtual;
+		   	var scoreNivel2 = 5;
+		   	var scoreNivel3 = 20;
+		   	var scoreWin = 200;
 
-		function iniciar(){
+		function iniciar(nivel){
+			if (nivel == 0)
+				nivel = 2;
+
 			var bola = document.getElementById('bola');
 			var barra = document.getElementById('barra');
 			topBola = 10;
 			leftBola = 10;
 			topBarra = 470;
 			leftBarra = 450;
-			temporizador = 50;
-			minTempo = 5;
-			qtdTempo = 50;
-			count = 0;
+			
+			mudarNivel(nivel);
+
 			limiteBottom = 480;
 			limiteRight = 780;
 			flagTop = true;
@@ -111,7 +118,19 @@
 		    document.getElementById('pontuacao').innerHTML = 'Pontuação:' + score;
 		    move();
 		}
-		   
+
+
+		   function mudarNivel(nivel){
+		   	 nivelAtual = nivel;
+		   	 temporizador = 50 - ((parseInt(nivelAtual) - 1) * 25);
+		   	 if (nivelAtual == 1)
+		   	 	document.getElementById('nivelText').innerText = 'Fácil';
+		   	 if (nivelAtual == 2)
+		   	 	document.getElementById('nivelText').innerText = 'Normal';
+		   	 if (nivelAtual == 3)
+		   	 	document.getElementById('nivelText').innerText = 'Difícil';
+
+		   }
 
 
 		   function move(){
@@ -135,6 +154,18 @@
 		   		 	
 		   	 		flagTop = false;
 		   	 		score = score + 1;
+		   	 		if ((nivelAtual == 1) && (score == scoreNivel2)){
+		   	 			alert('Parabéns você mudou de nível.');
+		   	 			mudarNivel(2);
+		   	 		}
+		   	 		if ((nivelAtual == 2) && (score == scoreNivel3)){
+		   	 			alert('Parabéns você mudou de nível.');
+		   	 			mudarNivel(3);
+		   	 		}
+		   	 		if (score == scoreWin){
+		   	 			alert('Parabéns você ganhou o jogo.');
+		   	 			return;
+		   	 		}
 		   	 		document.getElementById('pontuacao').innerHTML = 'Pontuação:' + score;
 		   	 		
 
@@ -202,10 +233,6 @@
 
 
 		   		 setTimeout("move()",temporizador);
-		   		 count++;
-		   		 if (count % qtdTempo == 0)
-		   		 	if (temporizador > minTempo)
-		   		 	 	temporizador--;
 		   }
 
 
@@ -240,6 +267,7 @@
 		</script>
 	</head>
 	<body >
+		<h1>Nível: <span id="nivelText"></span></h1>
 		<div id="tela">
 			<div id="bola">
 			</div> 
@@ -249,7 +277,16 @@
 		<div id="score">
 			<h1>Placar</h1>
 			<p id="pontuacao">Pontuação: </p>
-			<h2><a href="#" onclick="iniciar()">Iniciar</a></h2>
+			<p>
+				<select id="nivel">
+					<option value="0">Selecione o nível</option>
+					<option value="1">Fácil</option>
+					<option value="2">Normal</option>
+					<option value="3">Difícil</option>		
+				</select>
+			</p>
+			<h2><a href="#" onclick="iniciar(document.getElementById('nivel').value)">Iniciar</a></h2>
+
 		</div>
 	</body>
 </html>
