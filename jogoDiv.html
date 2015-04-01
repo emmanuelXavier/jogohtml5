@@ -4,6 +4,12 @@
 		<title>Jogo Pong 02</title>
 		<meta charset='UTF-8'>
 		<style>
+			#body{
+				
+			}
+
+			
+
 			#bola{
 				background-color: red;
 				width: 20px;
@@ -26,19 +32,37 @@
 				background-color: #eee;
 				width: 800px;
 				height:500px;
-				position: relative;
+				position: absolute;
 				float: left;
-				margin-top: 30px;
-				margin-left: 30px;
+				margin-top: -330px;
 				border: 1px solid #ccc;
+				left:50%;
+				margin-left:-400px;
+
 			}
+
+			#seta_esquerda{
+				
+				width: 100px;
+				height: 50px;
+				margin-top: 300px;
+				margin-right:910px;
+			}
+
+			#seta_direita{
+				
+				width: 100px;
+				height: 50px;
+				margin-left: 910px;
+				margin-top: -40px;
+						
+			}
+
 			#score{
 				background-color: #eee;
-				width: 200px;
-				height:180px;
+				width: 100%;
+				height:120px;
 				float: left;
-				margin-top: 30px;
-				margin-left: 50px;
 				border: 1px solid #ccc;
 			}
 
@@ -49,12 +73,23 @@
 				text-align: center;
 				margin: 0px;
 			}
+
+			
+
 			#score p{
 				font-weight: bold;
 				color: red;
-				font-size: 16px;
+				font-size: 20px;
 				padding: 10px;
+				margin-left: 430px;
+				margin-top: -40px;
+
 			}
+
+
+
+			
+
 			#score h2{
 				border: 1px solid #cc0000;
 				font-weight: bold;
@@ -63,7 +98,8 @@
 				padding: 4px;
 				width: 60px;
 				background-color: #cc0000;
-				margin-top: -18px;
+				margin-top: -60px;
+				margin-right:400px;
 			}
 			h1{
 				color: #cc0000;	
@@ -264,28 +300,72 @@
 				}
 				      	
 		   }
+
+		   function stEsquerda(){		   	
+		   			var sizeBarra = 150;
+		   			var widthTela = 800;			   
+					direcaoMoveBarra = 'E';
+					tempoMoveBarra = new Date().getTime();
+					leftBarra = leftBarra - (100 - temporizador);
+					if (leftBarra < 0)
+						leftBarra = 0;
+					barra.style.marginLeft = leftBarra+'px';
+				}				
+			function stDireita(){
+					var sizeBarra = 150;
+		   			var widthTela = 800;			   
+					direcaoMoveBarra = 'D';
+					tempoMoveBarra = new Date().getTime();
+					leftBarra = leftBarra + 100 - temporizador;
+					if (leftBarra + sizeBarra > widthTela)
+						leftBarra = widthTela - sizeBarra;
+					barra.style.marginLeft = leftBarra+'px';				
+			}	 
+			if (screen.width == "800") {  
+				visivil  = true;
+    			window.resizeTo(800, 600);  
+  			} 
+
 		</script>
 	</head>
 	<body >
-		<h1>Nível: <span id="nivelText"></span></h1>
-		<div id="tela">
-			<div id="bola">
-			</div> 
-			<div id="barra">
-			</div> 
-		</div>
+		
+		
 		<div id="score">
 			<h1>Placar</h1>
-			<p id="pontuacao">Pontuação: </p>
-			<p>
-				<select id="nivel">
+
+			<div align="center">
+				<h3>Nível atual: <span id="nivelText"></span></h3>
+				<select id="nivel" align="center">
 					<option value="0">Selecione o nível</option>
 					<option value="1">Fácil</option>
 					<option value="2">Normal</option>
 					<option value="3">Difícil</option>		
-				</select>
-			</p>
+				</select>	
+			<p id="pontuacao">Pontuação: </p>
 			<h2><a href="#" onclick="iniciar(document.getElementById('nivel').value)">Iniciar</a></h2>
+			</div>
+			
+			
+
+				<div id="setas" align="center">
+			     <div id="seta_esquerda">
+					<input id="stEsquerda" type="image" src="img\nav_left_red.png" onclick="stEsquerda()">
+			       </div>
+			             <div id="seta_direita">
+					     <input id="stDireita" type="image" src="img\nav_right_red.png" onclick="stDireita()">
+			        </div>
+			</div>
+
+				<div id="tela">
+			     <div id="bola">
+			       </div> 
+			       <div id="barra">
+			    </div> 
+		    </div>
+
+	
+			
 
 		</div>
 	</body>
