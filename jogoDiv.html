@@ -1,372 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-	<head>
-		<title>Jogo Pong 02</title>
-		<meta charset='UTF-8'>
-		<style>
-			#body{
-				
-			}
-
-			
-
-			#bola{
-				background-color: red;
-				width: 20px;
-				height:20px;
-				border-radius:10px;
-				position: absolute;
-
-			}
-
-			#barra{
-				background-color: #000;
-				width: 150px;
-				height:30px;
-				border-radius:4px;
-				position: absolute;
-				margin-top: 465px;
-			}
-
-			#tela{
-				background-color: #eee;
-				width: 800px;
-				height:500px;
-				position: absolute;
-				float: left;
-				margin-top: -330px;
-				border: 1px solid #ccc;
-				left:50%;
-				margin-left:-400px;
-
-			}
-
-			#seta_esquerda{
-				
-				width: 100px;
-				height: 50px;
-				margin-top: 300px;
-				margin-right:910px;
-			}
-
-			#seta_direita{
-				
-				width: 100px;
-				height: 50px;
-				margin-left: 910px;
-				margin-top: -40px;
-						
-			}
-
-			#score{
-				background-color: #eee;
-				width: 100%;
-				height:120px;
-				float: left;
-				border: 1px solid #ccc;
-			}
-
-			#score h1{
-				background-color: #ccc;
-				color: #333;
-				font-size: 16px;
-				text-align: center;
-				margin: 0px;
-			}
-
-			
-
-			#score p{
-				font-weight: bold;
-				color: red;
-				font-size: 20px;
-				padding: 10px;
-				margin-left: 430px;
-				margin-top: -40px;
-
-			}
-
-
-
-			
-
-			#score h2{
-				border: 1px solid #cc0000;
-				font-weight: bold;
-				color: #fff;
-				font-size: 18px;
-				padding: 4px;
-				width: 60px;
-				background-color: #cc0000;
-				margin-top: -60px;
-				margin-right:400px;
-			}
-			h1{
-				color: #cc0000;	
-				margin: 10px 0 0 25px;
-			}
-		</style>
-		<script>
-		var i = 10;
-			var j = 10;
-
-			var bi = 465;
-			var bj = 450;
-			var temporizador;
-			var limiteBottom = 480;
-			var limiteRight = 780;
-			var flagTop = true;
-			var flagLeft = true;
-			var score = 0;
-			var tempoMoveBarra;
-			var direcaoMoveBarra;
-			var inclinacao;
-		 	var limInfInclinacao = 1;
-		   	var limSupInclinacao = 9;
-		   	var nivelAtual;
-		   	var scoreNivel2 = 5;
-		   	var scoreNivel3 = 20;
-		   	var scoreWin = 200;
-
-		function iniciar(nivel){
-			if (nivel == 0)
-				nivel = 2;
-
-			var bola = document.getElementById('bola');
-			var barra = document.getElementById('barra');
-			topBola = 10;
-			leftBola = 10;
-			topBarra = 470;
-			leftBarra = 450;
-			
-			mudarNivel(nivel);
-
-			limiteBottom = 480;
-			limiteRight = 780;
-			flagTop = true;
-			flagLeft = true;
-			score = 0;
-			inclinacao = 5;
-		    bola.style.marginLeft = leftBola+'px';
-		    bola.style.marginTop = topBola+'px';
-		    barra.style.marginLeft = leftBarra+'px';
-		   	barra.style.marginTop = topBarra+'px';
-		    document.getElementById('pontuacao').innerHTML = 'Pontuação:' + score;
-		    move();
-		}
-
-
-		   function mudarNivel(nivel){
-		   	 nivelAtual = nivel;
-		   	 temporizador = 50 - ((parseInt(nivelAtual) - 1) * 25);
-		   	 if (nivelAtual == 1)
-		   	 	document.getElementById('nivelText').innerText = 'Fácil';
-		   	 if (nivelAtual == 2)
-		   	 	document.getElementById('nivelText').innerText = 'Normal';
-		   	 if (nivelAtual == 3)
-		   	 	document.getElementById('nivelText').innerText = 'Difícil';
-
-		   }
-
-
-		   function move(){
-
-
-		   		 var bola = document.getElementById('bola');
-		   		 if (flagTop)
-		   		 	topBola = topBola + 5;
-		   		 else
-		   		 	topBola = topBola - 5;
-
-		   		 if (flagLeft)
-		   		 	leftBola = leftBola + inclinacao;
-		   		 else
-		   		 	leftBola = leftBola - inclinacao;
-		   		  
-		   		 
-		   		 bola.style.marginLeft = leftBola+'px';
-		   		 bola.style.marginTop = topBola+'px';
-		   		 if ((topBola + 20 >= topBarra) && (leftBola + 20 >= leftBarra)  && (leftBola <= leftBarra + 170)){
-		   		 	
-		   	 		flagTop = false;
-		   	 		score = score + 1;
-		   	 		if ((nivelAtual == 1) && (score == scoreNivel2)){
-		   	 			alert('Parabéns você mudou de nível.');
-		   	 			mudarNivel(2);
-		   	 		}
-		   	 		if ((nivelAtual == 2) && (score == scoreNivel3)){
-		   	 			alert('Parabéns você mudou de nível.');
-		   	 			mudarNivel(3);
-		   	 		}
-		   	 		if (score == scoreWin){
-		   	 			alert('Parabéns você ganhou o jogo.');
-		   	 			return;
-		   	 		}
-		   	 		document.getElementById('pontuacao').innerHTML = 'Pontuação:' + score;
-		   	 		
-
-		   	 		if (new Date().getTime() - tempoMoveBarra <= 500){
-		   	 			if (flagLeft){
-		   	 				if (direcaoMoveBarra == 'D'){
-			   	 				inclinacao += 4;
-			   	 				if (inclinacao > limSupInclinacao)
-			   	 					inclinacao = limSupInclinacao;
-		   	 				}
-		   	 				if (direcaoMoveBarra == 'E'){
-			   	 				inclinacao -= 4;
-			   	 				if (inclinacao < limInfInclinacao)
-			   	 					inclinacao = limInfInclinacao;
-		   	 				}
-		   	 			}else{
-		   	 				if (direcaoMoveBarra == 'D'){
-			   	 				inclinacao -= 4;
-			   	 				if (inclinacao < limInfInclinacao)
-			   	 					inclinacao = limInfInclinacao;
-		   	 				}
-		   	 				if (direcaoMoveBarra == 'E'){
-			   	 				inclinacao += 4;
-			   	 				if (inclinacao > limSupInclinacao)
-			   	 					inclinacao = limSupInclinacao;
-		   	 				}
-		   	 			}
-		   	 		}
-
-		   	 		//muda a direção da bola caso a mesma bata no canto esquerdo
-		   	 		if ((topBola + 20 >= topBarra) && (leftBola + 20 >= leftBarra)  && (leftBola <= leftBarra + 10)){
-		   	 			flagLeft = false;
-		   	 			inclinacao = 5;
-		   	 		}
-
-		   	 		//muda a direção da bola caso a mesma bata no canto direito
-		   	 		if ((topBola + 20 >= topBarra) && (leftBola >= leftBarra + 140)  && (leftBola <= leftBarra + 170)){
-		   	 			flagLeft = true;
-		   	 			inclinacao = 5;
-		   	 		}
-		   		 }	
-
-		   		 if (topBola >= limiteBottom ) {
-		   		 	document.getElementById('pontuacao').innerHTML = 'GAME OVER';
-		   	 		return;
-		   	 		flagTop= false;
-		   		 }
-
-
-
-		   		 if (leftBola >= limiteRight) {
-		   		 	
-		   	 		flagLeft = false;
-		   		 }	 
-
-		   		 if (topBola <= 0 ) {
-		   		 	
-		   	 		flagTop = true;
-		   		 }	
-
-		   		 if (leftBola <= 0) {
-		   		 	
-		   	 		flagLeft = true;
-		   		 }	 
-
-
-		   		 setTimeout("move()",temporizador);
-		   }
-
-
-
-
-		   document.onkeydown = function(e){
-		   	var sizeBarra = 150;
-		   	var widthTela = 800;
-		   	var barra = document.getElementById('barra');
-				if ((e.which == 65) || (e.which == 37)){
-					direcaoMoveBarra = 'E';
-					tempoMoveBarra = new Date().getTime();
-					leftBarra = leftBarra - (100 - temporizador);
-					if (leftBarra < 0)
-						leftBarra = 0;
-
-					barra.style.marginLeft = leftBarra+'px';
-
-				}
-
-				if ((e.which == 68) || (e.which == 39)){
-					direcaoMoveBarra = 'D';
-					tempoMoveBarra = new Date().getTime();
-					leftBarra = leftBarra + 100 - temporizador;
-					if (leftBarra + sizeBarra > widthTela)
-						leftBarra = widthTela - sizeBarra;
-					barra.style.marginLeft = leftBarra+'px';
-
-				}
-				      	
-		   }
-
-		   function stEsquerda(){		   	
-		   			var sizeBarra = 150;
-		   			var widthTela = 800;			   
-					direcaoMoveBarra = 'E';
-					tempoMoveBarra = new Date().getTime();
-					leftBarra = leftBarra - (100 - temporizador);
-					if (leftBarra < 0)
-						leftBarra = 0;
-					barra.style.marginLeft = leftBarra+'px';
-				}				
-			function stDireita(){
-					var sizeBarra = 150;
-		   			var widthTela = 800;			   
-					direcaoMoveBarra = 'D';
-					tempoMoveBarra = new Date().getTime();
-					leftBarra = leftBarra + 100 - temporizador;
-					if (leftBarra + sizeBarra > widthTela)
-						leftBarra = widthTela - sizeBarra;
-					barra.style.marginLeft = leftBarra+'px';				
-			}	 
-			if (screen.width == "800") {  
-				visivil  = true;
-    			window.resizeTo(800, 600);  
-  			} 
-
-		</script>
-	</head>
-	<body >
-		
-		
-		<div id="score">
-			<h1>Placar</h1>
-
-			<div align="center">
-				<h3>Nível atual: <span id="nivelText"></span></h3>
-				<select id="nivel" align="center">
-					<option value="0">Selecione o nível</option>
-					<option value="1">Fácil</option>
-					<option value="2">Normal</option>
-					<option value="3">Difícil</option>		
-				</select>	
-			<p id="pontuacao">Pontuação: </p>
-			<h2><a href="#" onclick="iniciar(document.getElementById('nivel').value)">Iniciar</a></h2>
-			</div>
-			
-			
-
-				<div id="setas" align="center">
-			     <div id="seta_esquerda">
-					<input id="stEsquerda" type="image" src="img\nav_left_red.png" onclick="stEsquerda()">
-			       </div>
-			             <div id="seta_direita">
-					     <input id="stDireita" type="image" src="img\nav_right_red.png" onclick="stDireita()">
-			        </div>
-			</div>
-
-				<div id="tela">
-			     <div id="bola">
-			       </div> 
-			       <div id="barra">
-			    </div> 
-		    </div>
-
-	
-			
-
-		</div>
-	</body>
+<head>
+    <title>Jogo Pong 02</title>
+    <meta charset='UTF-8'>
+    <link rel="stylesheet" type="text/css" href="css/pong.css">
+    <script src="js/pong.js" type="text/javascript" charset="utf-8" defer></script>
+</head>
+<body>
+    <div id="score">
+        <h1>Placar</h1>
+        <div align="center">
+	    	<img src="img/SVT_Play.png" height="72" width="50" alt="" onclick="iniciar(document.getElementById('nivel').value)">
+	    	<div id="controlePlacar">
+	            <span>Nível atual: <span id="nivelText"></span></span>
+	            <select id="nivel" align="center">
+	                <option value="0">Selecione o nível</option>
+	                <option value="1">Fácil</option>
+	                <option value="2">Normal</option>
+	                <option value="3">Difícil</option>
+	            </select>
+	            <span id="pontuacao">Pontuação: </span>
+	    	</div>
+        </div>
+    </div>
+    <div id="linha2">
+        <div class="setas">
+        <div id="seta_esquerda" onclick="stEsquerda()"></div>
+        </div>
+        <div id="tela">
+            <div id="bola">
+            </div>
+            <div id="barra">
+            </div>
+        </div>
+        <div class="setas">
+        	<div id="seta_direita" onclick="stDireita()"></div>
+        </div>
+    </div>
+</body>
 </html>

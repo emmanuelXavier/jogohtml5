@@ -1,0 +1,79 @@
+#bola {
+	background-color: red;
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	position: absolute;
+}
+#barra {
+	background-color: #000;
+	width: 150px;
+	height: 30px;
+	border-radius: 4px;
+	position: absolute;
+	margin-top: 465px;
+}
+#tela {
+	background-color: #eee;
+	width: 800px;
+	height: 500px;
+	float: left;
+	position: relative;
+	margin-top: 10px;
+	border: 1px solid #ccc;
+}
+#score {
+	background-color: #eee;
+	width: 100%;
+	border: 1px solid #ccc;
+	float: left;
+	position: relative;
+}
+#score h1 {
+	/*height: 10px;*/
+	padding: 0px;
+	margin: 0px;
+	background-color: #9D9D9D;
+	text-align: center;
+}
+#score img {
+	display: inline-block;
+	vertical-align: middle;
+}
+#controlePlacar {
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 28px;
+}
+.setas {
+	position: relative;
+	float: left;
+	margin-top: 10%;
+}
+.setas div {
+	margin: 10px;
+}
+#seta_esquerda {
+	width: 0; 
+	height: 0; 
+	border-top: 100px solid transparent;
+	border-bottom: 100px solid transparent;
+
+	border-right:100px solid #58C627;
+}
+#seta_direita {
+	width: 0;
+	height: 0;
+	border-top: 100px solid transparent;
+	border-bottom: 100px solid transparent;
+
+	border-left: 100px solid #58C627;
+}
+#linha2 {
+	clear: both;
+	position: relative;
+	/*float: left;*/
+	width: 90%;
+	margin: auto;
+	border: 1px solid black;
+}
