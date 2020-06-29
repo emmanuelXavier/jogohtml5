@@ -17,29 +17,29 @@ var nivelAtual;
 var scoreNivel2 = 5;
 var scoreNivel3 = 20;
 var scoreWin = 200;
-var bola      = document.getElementById('bola');
-var barra     = document.getElementById('barra');
+var bola = document.getElementById('bola');
+var barra = document.getElementById('barra');
 var pontuacao = document.getElementById('pontuacao');
 var nivelText = document.getElementById('nivelText');
 
 function iniciar(nivel) {
     if (nivel == 0) nivel = 2;
-    topBola   = 10;
-    leftBola  = 10;
-    topBarra  = 470;
+    topBola = 10;
+    leftBola = 10;
+    topBarra = 470;
     leftBarra = 450;
     mudarNivel(nivel);
     limiteBottom = 480;
-    limiteRight  = 780;
-    flagTop  = true;
+    limiteRight = 780;
+    flagTop = true;
     flagLeft = true;
     score = 0;
     inclinacao = 5;
-    bola.style.marginLeft  = leftBola + 'px';
-    bola.style.marginTop   = topBola + 'px';
+    bola.style.marginLeft = leftBola + 'px';
+    bola.style.marginTop = topBola + 'px';
     barra.style.marginLeft = leftBarra + 'px';
-    barra.style.marginTop  = topBarra + 'px';
-    pontuacao.innerHTML = 'Pontuação:' + score;
+    barra.style.marginTop = topBarra + 'px';
+    pontuacao.innerHTML = 'Pontuacao:' + score;
     move();
 }
 
@@ -72,7 +72,7 @@ function move() {
             alert('Parabéns você ganhou o jogo.');
             return;
         }
-        pontuacao.innerHTML = 'Pontuação:' + score;
+        pontuacao.innerHTML = 'Pontuacao:' + score;
         if (new Date().getTime() - tempoMoveBarra <= 500) {
             if (flagLeft) {
                 if (direcaoMoveBarra == 'D') {
@@ -122,7 +122,7 @@ function move() {
     setTimeout("move()", temporizador);
 }
 
-document.onkeydown = function(e) {
+document.onkeydown = function (e) {
     var sizeBarra = 150;
     var widthTela = 800;
     if ((e.which == 65) || (e.which == 37)) {

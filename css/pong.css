@@ -1,3 +1,14 @@
+@font-face {
+    font-family: 'Pixel';
+    src: url("../fonts/Pixel.ttf")
+}
+@font-face {
+    font-family: 'Oswald';
+    src: url('../fonts/Oswald-Regular.ttf') format('truetype');
+}
+body {
+	background-color: #212529 !important;
+}
 #bola {
 	background-color: red;
 	width: 20px;
@@ -14,7 +25,7 @@
 	margin-top: 465px;
 }
 #tela {
-	background-color: #eee;
+	background-color: deepskyblue;
 	width: 800px;
 	height: 500px;
 	float: left;
@@ -29,21 +40,30 @@
 	float: left;
 	position: relative;
 }
-#score h1 {
-	/*height: 10px;*/
-	padding: 0px;
-	margin: 0px;
-	background-color: #9D9D9D;
+#score h1{
+	font-family: 'Oswald';
+	font-size: 3em;
 	text-align: center;
 }
 #score img {
 	display: inline-block;
 	vertical-align: middle;
+	cursor: pointer;
+}
+#score select {
+	cursor: pointer;
 }
 #controlePlacar {
 	display: inline-block;
 	vertical-align: top;
 	margin-top: 28px;
+}
+#pontuacao {
+	font-family: 'Pixel';
+	font-size: 1.5em;
+}
+#nivelText {
+	font-family: 'Oswald';
 }
 .setas {
 	position: relative;
@@ -69,11 +89,12 @@
 
 	border-left: 100px solid #58C627;
 }
-#linha2 {
-	clear: both;
-	position: relative;
-	/*float: left;*/
-	width: 90%;
-	margin: auto;
-	border: 1px solid black;
+.easy {
+	background-color: deepskyblue;
+}
+.normal {
+	background-color: greenyellow;
+}
+.hard {
+	background-color: indigo;
 }
