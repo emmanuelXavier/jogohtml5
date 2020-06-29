@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <title>Jogo Pong 02</title>
+    <title>Jogo Pong</title>
     <meta charset='UTF-8'>
     <link rel="stylesheet" type="text/css" href="css/pong.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="js/pong.js" type="text/javascript" charset="utf-8" defer></script>
 </head>
+
 <body>
-    <div id="score">
-        <h1>Placar</h1>
-        <div align="center">
-	    	<img src="img/SVT_Play.png" height="72" width="50" alt="" onclick="iniciar(document.getElementById('nivel').value)">
-	    	<div id="controlePlacar">
-	            <span>Nível atual: <span id="nivelText"></span></span>
-	            <select id="nivel" align="center">
-	                <option value="0">Selecione o nível</option>
-	                <option value="1">Fácil</option>
-	                <option value="2">Normal</option>
-	                <option value="3">Difícil</option>
-	            </select>
-	            <span id="pontuacao">Pontuação: </span>
-	    	</div>
-        </div>
-    </div>
-    <div id="linha2">
-        <div class="setas">
-        <div id="seta_esquerda" onclick="stEsquerda()"></div>
-        </div>
-        <div id="tela">
-            <div id="bola">
-            </div>
-            <div id="barra">
+    <div class="container-fluid">
+        <div id="score">
+            <h1>Jogo Pong</h1>
+            <div align="center">
+                <img src="img/SVT_Play.png" height="72" width="50" alt=""
+                    onclick="iniciar(document.getElementById('nivel').value)">
+                <div id="controlePlacar">
+                    <span id="nivelText">Nível atual: <span id="nivelText"></span></span>
+                    <select id="nivel" align="center">
+                        <option value="0">Selecione o nível</option>
+                        <option value="1">Fácil</option>
+                        <option value="2">Normal</option>
+                        <option value="3">Difícil</option>
+                    </select>
+                    <span id="pontuacao">Pontuacao: </span>
+                </div>
             </div>
         </div>
-        <div class="setas">
-        	<div id="seta_direita" onclick="stDireita()"></div>
+        <div id="linha2" class="row justify-content-center">
+            <div class="setas">
+                <div id="seta_esquerda" onclick="stEsquerda()"></div>
+            </div>
+            <div id="tela">
+                <div id="bola">
+                </div>
+                <div id="barra">
+                </div>
+            </div>
+            <div class="setas">
+                <div id="seta_direita" onclick="stDireita()"></div>
+            </div>
         </div>
     </div>
 </body>
+
 </html>
